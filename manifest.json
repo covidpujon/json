@@ -4,9 +4,9 @@
     "display": "standalone",
     "prefer_related_applications": false,
     "start_url": "https://oksigencenter.blogspot.com/",
-    "short_name": "Covid Center Pujon",
-    "name": "Covid Center Pujon",
-    "description": "Laporan Pasien Covid-19 Kecamatan Pujon Malang",
+    "short_name": "Oksigen Center",
+    "name": "Oksigen Center",
+    "description": "Laporan Regulasi Peredaran Tabung Oksigen dan Regulator Oksigen di Kecamatan Pujon Malang",
     "serviceworker": {
     "src": "https://raw.githubusercontent.com/covidpujon/json/main/sw.js",
     "update_via_cache": "none"
