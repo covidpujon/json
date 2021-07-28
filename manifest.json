@@ -7,6 +7,10 @@
     "short_name": "Covid Center Pujon",
     "name": "Covid Center Pujon",
     "description": "Laporan Pasien Covid-19 Kecamatan Pujon Malang",
+    "serviceworker": {
+    "src": "https://raw.githubusercontent.com/covidpujon/json/main/sw.js",
+    "update_via_cache": "none"
+  },
     "icons": [
         {
             "src": "https://1.bp.blogspot.com/-_r2cNUWUPKg/YP_jMHqjIiI/AAAAAAAAAAQ/E2_VgPBpT1oqI89AQGMW6Ij7d4W4bTC_QCLcBGAsYHQ/s0/icon-192x192.png",
@@ -34,6 +38,4 @@
 			
         }
     ]
-	"serviceworker": {"src": "https://raw.githubusercontent.com/covidpujon/json/main/sw.js"},
-  
-}
+	}
