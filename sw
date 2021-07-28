@@ -1,58 +1,11 @@
+
 const js = `
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
-if (workbox) {
-workbox.core.skipWaiting();
-workbox.core.clientsClaim();
-workbox.core.setCacheNameDetails({
-  prefix: 'thn-sw',
-  suffix: 'v22',
-  precache: 'install-time',
-  runtime: 'run-time'
-});
+'use strict';
+const CACHE_VERSION=1;
+let CURRENT_CACHES={offline:"offline-v1"};
+const OFFLINE_URL="/p/offline-page-for-pwa.html";
+function createCacheBustedRequest(a){let b=new Request(a,{cache:"reload"});if("cache"in b)return b;let c=new URL(a,self.location.href);return c.search+=(c.search?"&":"")+"cachebust="+Date.now(),new Request(c)}self.addEventListener("install",a=>{a.waitUntil(fetch(createCacheBustedRequest(OFFLINE_URL)).then(function(a){return caches.open(CURRENT_CACHES.offline).then(function(b){return b.put(OFFLINE_URL,a)})}))}),self.addEventListener("activate",a=>{let b=Object.keys(CURRENT_CACHES).map(function(a){return CURRENT_CACHES[a]});a.waitUntil(caches.keys().then(a=>Promise.all(a.map(a=>{if(-1===b.indexOf(a))return console.log("Deleting out of date cache:",a),caches.delete(a)}))))}),self.addEventListener("fetch",a=>{("navigate"===a.request.mode||"GET"===a.request.method&&a.request.headers.get("accept").includes("text/html"))&&(console.log("Handling fetch event for",a.request.url),a.respondWith(fetch(a.request).catch(a=>(console.log("Fetch failed; returning offline page instead.",a),caches.match(OFFLINE_URL)))))});
 
-const FALLBACK_HTML_URL = 'https://raw.githubusercontent.com/covidpujon/json/main/offline';
-const version = workbox.core.cacheNames.suffix;
-workbox.precaching.precacheAndRoute([{url: FALLBACK_HTML_URL, revision: null},{url: 'https://raw.githubusercontent.com/covidpujon/json/main/manifest.json', revision: null},{url: 'https://raw.githubusercontent.com/covidpujon/json/main/favicon.ico', revision: null}]);
-
-workbox.routing.setDefaultHandler(new workbox.strategies.NetworkOnly());
-
-workbox.routing.registerRoute(
-    new RegExp('.(?:css|js|png|gif|jpg|svg|ico)$'),
-    new workbox.strategies.CacheFirst({
-        cacheName: 'images-js-css-' + version,
-        plugins: [
-            new workbox.expiration.ExpirationPlugin({
-                maxAgeSeconds: 60 * 24 * 60 * 60,
-                maxEntries:200,
-                purgeOnQuotaError: true
-            })
-        ],
-    }),'GET'
-);
-
-workbox.routing.setCatchHandler(({event}) => {
-      switch (event.request.destination) {
-        case 'document':
-        return caches.match(FALLBACK_HTML_URL);
-      break;
-      default:
-        return Response.error();
-  }
-});
-
-self.addEventListener('activate', function(event) {
-  event.waitUntil(
-    caches
-      .keys()
-      .then(keys => keys.filter(key => !key.endsWith(version)))
-      .then(keys => Promise.all(keys.map(key => caches.delete(key))))
-  );
-});
-
-}
-else {
-    console.log('Boo! Workbox didnt load ');
-}
 `
 
 async function handleRequest(request) {
