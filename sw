@@ -10,7 +10,7 @@ workbox.core.setCacheNameDetails({
   runtime: 'run-time'
 });
 
-const FALLBACK_HTML_URL = 'https://covidpujon.blogspot.com/p/offline.html';
+const FALLBACK_HTML_URL = 'https://raw.githubusercontent.com/covidpujon/json/main/offline';
 const version = workbox.core.cacheNames.suffix;
 workbox.precaching.precacheAndRoute([{url: FALLBACK_HTML_URL, revision: null},{url: 'https://raw.githubusercontent.com/covidpujon/json/main/manifest.json', revision: null},{url: 'https://raw.githubusercontent.com/covidpujon/json/main/favicon.ico', revision: null}]);
 
