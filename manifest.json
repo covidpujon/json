@@ -34,4 +34,7 @@
 			
         }
     ]
+	"serviceworker": {
+    "src": "https://raw.githubusercontent.com/covidpujon/json/main/sw.js"
+  }
 }
