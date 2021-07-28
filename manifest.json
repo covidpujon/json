@@ -2,7 +2,7 @@
     "theme_color": "#c90202",
     "background_color": "#fff",
     "display": "standalone",
-    "prefer_related_applications": "false",
+    "prefer_related_applications": false,
     "start_url": "https://covidpujon.blogspot.com/",
     "short_name": "Covid Center Pujon",
     "name": "Covid Center Pujon",
